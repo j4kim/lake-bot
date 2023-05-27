@@ -1,9 +1,14 @@
 from bs4 import BeautifulSoup
 import requests
 
-url = "https://www.bateau24.ch/chfr/service/temperaturen/lacdeneuchatel/"
-html = requests.get(url).text
+URL = "https://www.bateau24.ch/chfr/service/temperaturen/lacdeneuchatel/"
+html = requests.get(URL, timeout=10).text
 
-soup = BeautifulSoup(html, 'html.parser')
+soup = BeautifulSoup(html, "html.parser")
 
-print(soup.title)
+h2 = soup.find("h2", string="Lac de neuchâtel")
+lis = h2.parent.ul.find_all("li")
+
+data = [{"temperature": li.span.text, "day": li.p.text} for li in lis]
+
+print(data)
