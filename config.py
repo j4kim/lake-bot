@@ -1,9 +1,18 @@
-URL = "https://www.bateau24.ch/chfr/service/temperaturen/lacdeneuchatel/"
-FILE = "data.json"
-LAKE = "Lac de neuchâtel"
-TRESHOLD = 16
-SMTP_SERVER = "mail.infomaniak.com"
-SMTP_LOGIN = "contact@3sdl.ch"
-SMTP_PASSWORD = "secret"
-MAIL_FROM = "Lake bot <contact@3sdl.ch>"
-MAIL_TO = "Jojo <jivkim@gmail.com>, Ivan <ivan.igrac@gmail.com>"
+from os import path
+from dotenv import dotenv_values
+
+
+CONFIG = {
+    **dotenv_values(path.join(path.dirname(__file__), ".env")),
+    **dotenv_values(path.join(path.dirname(__file__), ".env.local")),
+}
+
+URL = CONFIG["URL"]
+FILE = CONFIG["FILE"]
+LAKE = CONFIG["LAKE"]
+TRESHOLD = int(CONFIG["TRESHOLD"])
+SMTP_SERVER = CONFIG["SMTP_SERVER"]
+SMTP_LOGIN = CONFIG["SMTP_LOGIN"]
+SMTP_PASSWORD = CONFIG["SMTP_PASSWORD"]
+MAIL_FROM = CONFIG["MAIL_FROM"]
+MAIL_TO = CONFIG["MAIL_TO"]
