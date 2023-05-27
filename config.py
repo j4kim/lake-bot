@@ -8,7 +8,7 @@ CONFIG = {
 }
 
 URL = CONFIG["URL"]
-FILE = CONFIG["FILE"]
+FILE = path.join(path.dirname(__file__), CONFIG["FILE"])
 LAKE = CONFIG["LAKE"]
 TRESHOLD = int(CONFIG["TRESHOLD"])
 SMTP_SERVER = CONFIG["SMTP_SERVER"]
