@@ -2,17 +2,16 @@
 
 from bs4 import BeautifulSoup
 import requests
-
-URL = "https://www.bateau24.ch/chfr/service/temperaturen/lacdeneuchatel/"
+import config
 
 def scrape():
     """Make a request to the website and parse the data"""
 
-    html = requests.get(URL, timeout=10).text
+    html = requests.get(config.URL, timeout=10).text
 
     soup = BeautifulSoup(html, "html.parser")
 
-    title = soup.find("h2", string="Lac de neuchâtel")
+    title = soup.find("h2", string=config.LAKE)
     lis = title.parent.ul.find_all("li")
 
     data = [{

@@ -4,6 +4,7 @@ Description: This file runs the scraper and prints the data to the console
 
 import json
 import sys
+import config
 from scraper import scrape
 
 print("Scraping new data")
@@ -14,7 +15,7 @@ if len(new_data) == 0:
     sys.exit()
 
 old_data = []
-with open("data.json", "r", encoding="utf-8") as file:
+with open(config.FILE, "r", encoding="utf-8") as file:
     print("Reading old data")
     try:
         old_data = json.load(file)
@@ -29,6 +30,6 @@ if len(old_data) > 0:
     else:
         print("Temperature did not change")
 
-with open("data.json", "w", encoding="utf-8") as file:
+with open(config.FILE, "w", encoding="utf-8") as file:
     print("Writing new data")
     json.dump(new_data, file, indent=4)
