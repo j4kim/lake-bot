@@ -9,6 +9,9 @@ soup = BeautifulSoup(html, "html.parser")
 h2 = soup.find("h2", string="Lac de neuchâtel")
 lis = h2.parent.ul.find_all("li")
 
-data = [{"temperature": li.span.text, "day": li.p.text} for li in lis]
+data = [{
+    "temperature": int(li.span.text[:-1]),
+    "day": li.p.text
+} for li in lis]
 
 print(data)
