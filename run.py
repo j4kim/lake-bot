@@ -5,10 +5,11 @@ Description: This file runs the scraper and prints the data to the console
 import json
 import sys
 import config
-from scraper import scrape
+import scraper
+import notifier
 
 print("Scraping new data")
-new_data = scrape()
+new_data = scraper.scrape()
 
 if len(new_data) == 0:
     print("Failed to scrape data, exit")
@@ -27,6 +28,7 @@ if len(old_data) > 0:
     new_temperature = new_data[0]["temperature"]
     if old_temperature != new_temperature:
         print(f"Temperature changed from {old_temperature}° to {new_temperature}°")
+        notifier.check_and_notify(new_temperature, old_temperature)
     else:
         print("Temperature did not change")
 
