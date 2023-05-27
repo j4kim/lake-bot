@@ -22,10 +22,11 @@ try:
         print("Reading old data")
         old_data = json.load(file)
         old_temperature = old_data[0]["temperature"]
-        notifier.check_and_notify(new_temperature, old_temperature)
 except (FileNotFoundError, json.decoder.JSONDecodeError) as error:
     print("Failed to read old data from data.json:", error)
-    notifier.check_and_notify(new_temperature, 0)
+    old_temperature = 0
+
+notifier.check_and_notify(new_temperature, old_temperature)
 
 with open(config.FILE, "w", encoding="utf-8") as file:
     print("Writing new data")
