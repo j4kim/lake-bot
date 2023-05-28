@@ -14,9 +14,10 @@ def scrape():
     title = soup.find("h2", string=config.LAKE)
     lis = title.parent.ul.find_all("li")
 
-    data = [{
-        "temperature": int(li.span.text[:-1]),
-        "day": li.p.text
-    } for li in lis]
+    data = []
+    for li in lis:
+        t = li.span.text[:-1]
+        temperature = int(t) if t.isdigit() else None
+        data.append({ "temperature": temperature, "day": li.p.text })
 
     return data
